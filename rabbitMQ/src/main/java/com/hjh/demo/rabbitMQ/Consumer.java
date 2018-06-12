@@ -30,21 +30,20 @@ public class Consumer {
 
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
-		try {
-			channel.exchangeDeclare("demo", BuiltinExchangeType.DIRECT);
-			channel.queueDeclare(queue, true, false, false, null);
-			channel.queueBind(queue, exchange, route);
 
-			channel.basicConsume(queue, new DefaultConsumer(channel) {
-				@Override
-				public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-					System.out.println("收到消息:" + new String(body, "utf-8"));
-				}
-			});
-		} finally {
-			channel.close();
-			connection.close();
-		}
+		// 声明交换机
+		channel.exchangeDeclare("demo", BuiltinExchangeType.DIRECT, true);
+		// 声明队列
+		channel.queueDeclare(queue, true, false, false, null);
+		// 指定路由绑定队列和交换机
+		channel.queueBind(queue, exchange, route);
+		// 监听消息
+		channel.basicConsume(queue, new DefaultConsumer(channel) {
+			@Override
+			public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+				System.out.println("收到消息:" + new String(body, "utf-8"));
+			}
+		});
 
 	}
 

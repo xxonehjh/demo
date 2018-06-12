@@ -16,7 +16,7 @@ import com.rabbitmq.client.MessageProperties;
 public class Producer {
 
 	public static void main(String args[]) throws IOException, TimeoutException {
-		
+
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost("127.0.0.1");
 		factory.setPort(AMQP.PROTOCOL.PORT);
@@ -29,8 +29,10 @@ public class Producer {
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 		try {
-			channel.exchangeDeclare("demo", BuiltinExchangeType.DIRECT);
-			channel.basicPublish(exchange, route, MessageProperties.PERSISTENT_BASIC, "message content".getBytes());
+			// 声明交换机
+			channel.exchangeDeclare("demo", BuiltinExchangeType.DIRECT, true);
+			// 发送消息 - 消息会通过交换机按路由地址分发到与它绑定的队列里面
+			channel.basicPublish(exchange, route, MessageProperties.PERSISTENT_BASIC, "message content".getBytes("utf-8"));
 		} finally {
 			channel.close();
 			connection.close();
