@@ -1,5 +1,6 @@
 package com.hjh.demo.designPatterns;
 
+/**工厂模式*/
 public class Factory {
 
 	public interface IProduct {
