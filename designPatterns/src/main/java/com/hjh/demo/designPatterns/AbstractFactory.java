@@ -5,29 +5,29 @@ public class AbstractFactory {
 
 	public static void main(String args[]) {
 		IFactory f1 = new FactoryA();
-		System.out.println(f1.createPartA().name());
-		System.out.println(f1.createPartB().name());
+		System.out.println(f1.createProductA().name());
+		System.out.println(f1.createProductB().name());
 
 		f1 = new FactoryB();
-		System.out.println(f1.createPartA().name());
-		System.out.println(f1.createPartB().name());
+		System.out.println(f1.createProductA().name());
+		System.out.println(f1.createProductB().name());
 	}
 
-	public interface IPartA {
+	public interface IProductA {
 		String name();
 	}
 
-	public interface IPartB {
+	public interface IProductB {
 		String name();
 	}
 
 	public interface IFactory {
-		IPartA createPartA();
+		IProductA createProductA();
 
-		IPartB createPartB();
+		IProductB createProductB();
 	}
 
-	public static class PartAForFactoryA implements IPartA {
+	public static class ProductAForFactoryA implements IProductA {
 
 		@Override
 		public String name() {
@@ -36,7 +36,7 @@ public class AbstractFactory {
 
 	}
 
-	public static class PartBForFactoryA implements IPartB {
+	public static class ProductBForFactoryA implements IProductB {
 
 		@Override
 		public String name() {
@@ -45,7 +45,7 @@ public class AbstractFactory {
 
 	}
 
-	public static class PartAForFactoryB implements IPartA {
+	public static class ProductAForFactoryB implements IProductA {
 
 		@Override
 		public String name() {
@@ -54,7 +54,7 @@ public class AbstractFactory {
 
 	}
 
-	public static class PartBForFactoryB implements IPartB {
+	public static class ProductBForFactoryB implements IProductB {
 
 		@Override
 		public String name() {
@@ -66,13 +66,13 @@ public class AbstractFactory {
 	public static class FactoryA implements IFactory {
 
 		@Override
-		public IPartA createPartA() {
-			return new PartAForFactoryA();
+		public IProductA createProductA() {
+			return new ProductAForFactoryA();
 		}
 
 		@Override
-		public IPartB createPartB() {
-			return new PartBForFactoryA();
+		public IProductB createProductB() {
+			return new ProductBForFactoryA();
 		}
 
 	}
@@ -80,13 +80,13 @@ public class AbstractFactory {
 	public static class FactoryB implements IFactory {
 
 		@Override
-		public IPartA createPartA() {
-			return new PartAForFactoryB();
+		public IProductA createProductA() {
+			return new ProductAForFactoryB();
 		}
 
 		@Override
-		public IPartB createPartB() {
-			return new PartBForFactoryB();
+		public IProductB createProductB() {
+			return new ProductBForFactoryB();
 		}
 
 	}
