@@ -17,7 +17,6 @@ public class NoXmlTester {
 		Hello dao2 = ctx.getBean("myHello", Hello.class);
 		dao2.say();
 		System.out.println(dao1 == dao2);
-		System.in.read();
 		ctx.close();
 	}
 
